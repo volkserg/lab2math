@@ -14,6 +14,8 @@ class Solver:
         self.inB = 1 - b
         self.n = n
         self.count = 0
+        self.q = [None for i in range(n+1)]
+        self.q[n] = 1
     # -------------------------1st----------------------------
     def calc_pij(self, i, j):
         if j == 0:
@@ -32,15 +34,17 @@ class Solver:
                 res += self.calc_pij(i, k)
             return res
 
-    def calc_qi(self, i, q=1):
-        if i == self.n:
-            return 1
+    def calc_qi(self, i):
+        self.count+=1
+        print(self.q)
+        if self.q[i]:
+            return self.q[i]
         else:
             tmp = 0
             for j in range(i+1, self.n+1):
                 tmp += self.calc_qi(j)*self.calc_Pij(j, i)
-                print(tmp)
-            return tmp/self.calc_pij(i, i+1)
+            self.q[i] = tmp/self.calc_pij(i, i+1)
+            return self.q[i]
 
     def calc_pi(self, i):
         assert i >= 0 and i <= self.n
@@ -52,5 +56,6 @@ class Solver:
         else:
             return self.calc_pi(self.n) * self.calc_qi(i)
 
-s = Solver(0.3, 0.6, 3)
-print(s.calc_pi(3))
+s = Solver(0.5, 0.5, 20)
+print(s.calc_pi(1))
+print(s.q)
