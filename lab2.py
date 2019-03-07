@@ -36,7 +36,6 @@ class Solver:
 
     def calc_qi(self, i):
         self.count+=1
-        print(self.q)
         if self.q[i]:
             return self.q[i]
         else:
@@ -56,6 +55,11 @@ class Solver:
         else:
             return self.calc_pi(self.n) * self.calc_qi(i)
 
-s = Solver(0.5, 0.5, 20)
-print(s.calc_pi(1))
-print(s.q)
+    def calc_pxji(self, j, i):
+        return C(j, i) * self.inB**i * self.b**(j-i)
+
+    def calc_pxi(self, i):
+        sum = 0
+        for j in range(i, self.n+1):
+            sum += self.calc_pi(j)*self.calc_pxji(j, i)
+        return sum
