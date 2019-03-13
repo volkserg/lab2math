@@ -1,7 +1,8 @@
 from lab2 import *
+from solver2 import Solver2
 
-s = Solver(0.5, 0.5, 3) # a,b,n
-print(s.calc_pi(1))
+# s = Solver(0.1, 0.4, 20) # a,b,n
+# print(s.calc_qi(0))
 # print(s.q)
 
 # g = Graphics()
@@ -12,3 +13,8 @@ print(s.calc_pi(1))
 
 # g.draw_special_pi(0.1, 0.1, 3)
 
+
+
+s2 = Solver2(0.9, 0.9, 10, 3)
+print(s2.calc_pi(1))
+print(s2.q)
