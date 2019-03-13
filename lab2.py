@@ -41,17 +41,17 @@ class Solver:
 
     def calc_Pij(self, i, j):
         res = 0
-        if i >= 1 and i <= self.n and j >= 0 and j <= i-1:
-            for k in range(0, j+1):
-                res += self.calc_pij(i, k)
-            return res
+        assert i >= 1 and i <= self.n and j >= 0 and j <= i-1
+        for k in range(0, j+1):
+            res += self.calc_pij(i, k)
+        return res
 
     def calc_qi(self, i):
         if self.q[i]:
             return self.q[i]
         else:
             tmp = 0
-            for j in range(i+1, self.n+1):
+            for j in range(self.n, i, -1):
                 tmp += self.calc_qi(j)*self.calc_Pij(j, i)
             self.q[i] = tmp/self.calc_pij(i, i+1)
             return self.q[i]
@@ -112,8 +112,8 @@ class Graphics():
              xl='Значения a',
              yl='Значения функции',
              title='заголовок',
-             yrange='[0:2]',
-             xrange='[-1:1.2]',
+             yrange='[0:5]',
+             xrange='[-1:1]',
              out_file='file.pdf'):
         gp.c('set xlabel "' + xl + '"')
         gp.c('set ylabel "' + yl + '"')
@@ -181,7 +181,7 @@ class Graphics():
             a += da
             s.reload(a, b, n)
         points = []
-        points.append(((x1, y1), 'tmp.dat', 'VarN(a)'))
+        points.append(((x1, y1), 'tmp.dat', 'p*n(a)'))
         self._draw(points=points,
                    title="График зависимости VarN(a) и VarN*(a)",
                    )
