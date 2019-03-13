@@ -15,6 +15,6 @@ from solver2 import Solver2
 
 
 
-s2 = Solver2(0.9, 0.9, 10, 3)
-print(s2.calc_pi(1))
-print(s2.q)
+s2 = Solver2(0.9, 0.9, 1, 1)
+print(s2.calc_Dw())
+# print(s2.q)
